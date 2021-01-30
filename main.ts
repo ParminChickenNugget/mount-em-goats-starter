@@ -15,9 +15,21 @@ function createNewGoat () {
 }
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     newGoat.vx = 0
-    newGoat.ay = 300
-	
-})
+    newGoat.ay = 300})
+    sprites.onOverlap(SpriteKind.Goat, SpriteKind.StackGoat, function(theDroppedGoat: Sprite, theTopGoat: Sprite) {
+        theDroppedGoat.ay = 0
+        theDroppedGoat.vy=0
+        theDroppedGoat.setKind(SpriteKind.StackGoat)
+        createNewGoat()
+    })
+    function createNewGoat(){
+        newGoat = sprites.create(goatImgs[randint(0, goatImgs.length -1)], SpriteKind.Goat)
+        newGoat.setPosition(randint(20, 140), topGoat.y - 20)
+        let topGoat = baseGoat 
+        let newGoat: Sprite = null
+        createNewGoat()
+    }
+
 let newGoat: Sprite = null
 let baseGoat: Sprite = null
 let goatImgs: Image[] = []
